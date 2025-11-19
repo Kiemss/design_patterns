@@ -105,7 +105,7 @@ public:
     ~Factory() {printf("调用factory析构函数\n");}
     virtual Animal* basic_create(string name, int velocity) = 0;
     size_t get_times(){return this->m_times;}
-private:
+protected:
     size_t m_times;
 };
 
@@ -204,14 +204,14 @@ class Shoes
 {
 public:
     Shoes(){printf("it's a pair of ");}
-    virtual ~Shoes(){} // 添加虚析构，启用多态和 dynamic_cast
+    virtual ~Shoes() = default; // 添加虚析构，启用多态和 dynamic_cast
 };
 
 class Clothes
 {
 public:
     Clothes(){printf("look at this ");}
-    virtual ~Clothes(){} // 添加虚析构
+    virtual ~Clothes() = default; // 添加虚析构
 };
 
 class BlackShoes : public Shoes
@@ -249,15 +249,15 @@ public:
 class RedFactory : public AbstractFactory
 {
 public:
-    Shoes* create_shoes() {return new RedShoes;}
-    Clothes *create_clothes() {return new RedClothes;}
+    Shoes* create_shoes() {return new RedShoes();}
+    Clothes *create_clothes() {return new RedClothes();}
 };
 
 class BlackFactory : public AbstractFactory
 {
 public:
-    Shoes* create_shoes() {return new BlackShoes;}
-    Clothes *create_clothes() {return new BlackClothes;}
+    Shoes* create_shoes() {return new BlackShoes();}
+    Clothes *create_clothes() {return new BlackClothes();}
 };
 
 void abstract_factory_test()
