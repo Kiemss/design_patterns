@@ -26,3 +26,31 @@
   - 基类有虚函数时是否有虚析构？
   - Factory/Builder 是否显式表达所有权语义？
   - 是否避免不安全的 static_cast 下转？
+
+### 7.传入什么
+  * 指针：直接传入右值，开销很小。
+  * 智能指针：传入右值，需要保存时使用move可以避免额外的计数和拷贝
+  * 其他：综合考虑
+
+### 8.命名规范
+  * `I`前缀表示接口，用于抽象基类
+
+### STL删除指定元素
+
+* 核心语法
+  * `container.erase(std::remove(container.begin(), container.end(), value), container.end());`
+
+* 函数作用
+  * **std::remove**：将不等于value的元素前移，返回新结尾迭代器
+  * **erase**：删除从新结尾到实际结尾的元素
+
+* 执行效果
+  * 删除容器中所有等于value的元素
+  * 保持剩余元素的相对顺序
+  * 时间复杂度：O(n)
+
+* 条件删除变体
+  * `container.erase(std::remove_if(begin, end, 条件函数), container.end());`
+
+### 9.explict
+  单参数构造函数应该使用，字面量被隐式转换然后调用构造函数造成不必要的开销或者bug

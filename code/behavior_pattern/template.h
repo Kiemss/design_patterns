@@ -5,7 +5,7 @@
 class DataLoader
 {
 public:
-    void load() final
+    void load() 
     {
         read_file();
         parse_data();
