@@ -54,3 +54,18 @@
 
 ### 9.explict
   单参数构造函数应该使用，字面量被隐式转换然后调用构造函数造成不必要的开销或者bug
+
+### 10.remove_if
+  1. 成员函数（如 std::list::remove_if(Predicate pred)）：遍历容器，把 pred(element) 返回 true 的元素整体移除。Predicate 是可调用对象，可以是 lambda、函数指针或仿函数。
+  ```cpp
+  m_observers.remove_if([&](const std::weak_ptr<Observers> &weak) {
+      auto locked = weak.lock();
+      return !locked || (*locked == *observer);
+  });
+  ```
+  2. 算法版本（std::remove_if(first, last, pred)）：适用于顺序容器或迭代器区间，只是把要删除的元素“挤”到尾部并返回新结尾迭代器，最终还需配合 erase。
+  ```cpp
+  auto it = std::remove_if(vec.begin(), vec.end(), [](int x){ return x % 2 == 0; });
+  vec.erase(it, vec.end());
+  ```
+  核心语法点：pred 必须能接收容器元素并返回 bool；捕获外部变量时用 lambda 的捕获列表 [&]/[=]；成员版无需 erase，算法版要手动 erase。
