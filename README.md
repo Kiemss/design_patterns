@@ -13,11 +13,18 @@
 ## 仓库内容
 
 * 仓库内源码均使用`C++`实现
-* **设计模式基本信息**笔记
-* **单例模式**、**工厂模式**笔记
+* 23种设计模式的笔记和练习源码
 
 ## 文档目录
 
+[创建型设计模式](/docs/creation_design_pattern/)
+[行为型设计模式](/docs/behavior_pattern/)
+[结构性设计模式](/docs/structural_pattern/)
+
 
 ## 源码目录
+[创建型设计模式](/code/creation_design_pattern/)
+[行为型设计模式](/code/behavior_pattern/)
+[结构性设计模式](/code/structural_pattern/)
+
 
